@@ -125,6 +125,12 @@
         document.getElementById("score").innerHTML = "Shots: " + shots + " Score: " + score;
     }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        }, false);
+    });  //禁止按右鍵
+    
     window.onload = function () {
         el = document.getElementById("movingImage");
         el.onclick = scoreUp;   // 點擊圖片時增加分數
@@ -154,7 +160,12 @@
         }, 1000); // 每秒執行一次
     }
     function endGame() {
-        var rate = ((score / shots) * 100).toFixed(2);
+        var rate = 0;
+        if (shots == 0)
+            rate = 0;
+        else
+            rate = ((score / shots) * 100).toFixed(2);
+        
         alert("時間到，遊戲結束！\n點擊率為" + rate + "%\n有發現嗎！浦洋超人的飛行路線是FEniX的字樣 ^v^");
         el.onclick = null;
         document.getElementById("range").onclick = null;
