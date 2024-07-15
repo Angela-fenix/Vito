@@ -20,13 +20,13 @@
 
         #movingImage {
             position: absolute;
-            width: 10%;
+            width: 15%;
             height: auto;
             top: 50%;
             /* 圖片在垂直方向上的初始位置 */
             left: 0;
             /* 圖片在水平方向上的初始位置 */
-            transition: left 0.4s linear, top 0.4s linear;
+            transition: left 0.3s linear, top 0.3s linear;
             /* 使用過渡效果: 平滑移動 */
         }
 
@@ -116,7 +116,7 @@
         image.style.top = targetY + 'px';
 
         currentIndex++;
-        setTimeout(moveImage, 300); // 控制移動速度，每0.2秒移動一次
+        setTimeout(moveImage, 200); // 控制移動速度，每0.2秒移動一次
     }
     function scoreUp() {	//增加分数
         score++;
