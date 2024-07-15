@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Move Image Along Path</title>
+    <title>浦洋超人</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,18 +13,20 @@
             height: 100%;
             left: 0px;
             top: 0px;
-            background: url(background.png);
+            background: url(./background.png);
             cursor: crosshair;
             overflow: hidden;
         }
 
-        #vito {
+        #movingImage {
             position: absolute;
+            width: 10%;
+            height: auto;
             top: 50%;
             /* 圖片在垂直方向上的初始位置 */
             left: 0;
             /* 圖片在水平方向上的初始位置 */
-            transition: left 0.3s linear, top 0.3s linear;
+            transition: left 0.4s linear, top 0.4s linear;
             /* 使用過渡效果: 平滑移動 */
         }
 
@@ -47,7 +49,7 @@
         <div id="score"> </div>
         <p id="timer"> <span id="countdown">倒數計時: 10</span> 秒</p>
         <button onclick="restartGame()">重新開始遊戲</button>
-        <img id="vito" src="player_small.png" alt="Moving Image">
+        <img id="movingImage" src="./player_small.png" alt="Vito">
 
     </div>
 </body>
@@ -57,7 +59,7 @@
     var shots = 0;   // 總共射擊次數
     var el = null;
     let currentIndex = 0;
-    const image = document.getElementById('vito');
+    const image = document.getElementById('movingImage');
     // const pathPoints = [
     //     { x: 420, y: 180 }, { x: 260, y: 180 },
     //     { x: 260, y: 480 }, { x: 260, y: 315 },
@@ -114,7 +116,7 @@
         image.style.top = targetY + 'px';
 
         currentIndex++;
-        setTimeout(moveImage, 200); // 控制移動速度，每0.2秒移動一次
+        setTimeout(moveImage, 300); // 控制移動速度，每0.2秒移動一次
     }
     function scoreUp() {	//增加分数
         score++;
@@ -124,7 +126,7 @@
     }
 
     window.onload = function () {
-        el = document.getElementById("vito");
+        el = document.getElementById("movingImage");
         el.onclick = scoreUp;   // 點擊圖片時增加分數
         document.getElementById("range").onclick = function () {  //更新總點擊次數
             shots++;
