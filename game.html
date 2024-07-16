@@ -132,6 +132,7 @@
         score++;
 
          function changeCursor() {
+            event.preventDefault(); // 阻止預設行為
             document.body.classList.add('clicked'); // 整個視窗的游標改變
             setTimeout(() => {
                 document.body.classList.remove('clicked'); // 200 毫秒後恢復原樣
@@ -140,8 +141,10 @@
 
         // 添加點擊事件監聽
         el.addEventListener('click', changeCursor);
+
         // 添加觸摸事件監聽以支援手機瀏覽器
         el.addEventListener('touchstart', changeCursor);
+        el.addEventListener('touchend', changeCursor);
     }
     function scoreboard() {  //更新分數板
         document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + score;
