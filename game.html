@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>餵食浦洋</title>
+    <title>傳遞能量給浦洋</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -182,10 +182,7 @@
                 player_transparent.style.width = '15%';
                 player_transparent.style.height = 'auto%';
             }, 200);  // 200 毫秒後恢復原圖片 & z-index & 原圖片大小
-
-
         }
-
 
         // 添加點擊事件監聽
         player.addEventListener('click', changeImage);
@@ -239,11 +236,10 @@
         else
             rate = ((score / shots) * 100).toFixed(2);
 
-        if (rate >= 40)
-            alert("時間到！\n太棒啦~此次餵食成功率高達" + rate + "%！\n有發現嗎~浦洋的飛行路線是FEniX的字樣喔！");
+         if (rate >= 50)
+            alert("時間到！\n太棒啦~浦洋獲得了滿滿的愛<3 此次成功率高達" + rate + "%！\n有發現嗎~浦洋的飛行路線是FEniX的字樣喔！");
         else
-            alert("時間到！\n可惜...此次餵食成功率只有" + rate + "%！\n小技巧分享，可以試試看用手機橫向的狀態或是用電腦玩");
-
+            alert("時間到！\n能量傳遞不足... 此次成功率只有" + rate + "%！\n小技巧分享，可以試試看用手機橫向的狀態或是用電腦玩");
 
         player.onclick = null;
         document.getElementById("range").onclick = null;
