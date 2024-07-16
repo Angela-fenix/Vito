@@ -7,14 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        body {
+        /* body {
             cursor: crosshair;
-            /* 預設游標樣式為crosshair */
+            
+            /* 預設游標樣式為crosshair 
+        } */
+        .clickable-image {
+            /* 新增一張透明圖片 */
+            width: 100%;
+            height: 100%;
         }
 
         .clicked {
-            cursor: url('./food.png') 35 35, auto;
-            /* 點擊後的游標樣式 */
+            /* 點擊後的變化圖片 */
+            /* cursor: url('./heart.png') 35 35, auto; */
+
+            content: url('./heart.png');           
         }
 
         #range {
@@ -38,6 +46,19 @@
             /* 圖片在水平方向上的初始位置 */
             transition: left 0.3s linear, top 0.3s linear;
             /* 使用過渡效果: 平滑移動 */
+            z-index: 2;
+            /* 前景圖 */
+        }
+
+        #beforeClickImage {
+            position: absolute;
+            width: 15%;
+            height: auto;
+            top: 50%;
+            left: 0;
+            transition: left 0.3s linear, top 0.3s linear;
+            z-index: 1;
+            /* 後景圖 */
         }
 
         #score {
@@ -55,21 +76,24 @@
 </head>
 
 <body>
-    <div id="range" class="clickable-image ">
+    <div id="range" class="clickable-image"> <!--在整個視窗範圍都可以看到圖片變化 -->
         <div id="score"> </div>
         <p id="timer"> <span id="countdown">倒數計時: 10 秒</span> </p>
         <button onclick="restartGame()">重新開始遊戲</button>
         <img id="movingImage" src="./player_small.png" alt="Vito">
-
+        <img id="beforeClickImage" src="./transparent.png" z-index=2>
     </div>
 </body>
 
 <script>
     var score = 0;    // 分數
     var shots = 0;   // 總共射擊次數
-    var el = null;
+    // var el = null;
     let currentIndex = 0;
-    const image = document.getElementById('movingImage');
+    const player = document.getElementById('movingImage');
+    const player_transparent = document.getElementById('beforeClickImage');
+    const zIndex1 = window.getComputedStyle(player_transparent).getPropertyValue('z-index');
+    const zIndex2 = window.getComputedStyle(player).getPropertyValue('z-index');  //預設的垂直順序: player 在前
     // const pathPoints = [
     //     { x: 420, y: 180 }, { x: 260, y: 180 },
     //     { x: 260, y: 480 }, { x: 260, y: 315 },
@@ -122,8 +146,10 @@
         const targetX = pathPoints[currentIndex].x;
         const targetY = pathPoints[currentIndex].y;
 
-        image.style.left = targetX + 'px';
-        image.style.top = targetY + 'px';
+        player.style.left = targetX + 'px';
+        player.style.top = targetY + 'px';
+        player_transparent.style.left = targetX + 'px';
+        player_transparent.style.top = targetY + 'px';
 
         currentIndex++;
         setTimeout(moveImage, 200); // 控制移動速度，每0.2秒移動一次
@@ -131,20 +157,42 @@
     function scoreUp() {	//增加分数並變換游標圖
         score++;
 
-         function changeCursor() {
+        // el.addEventListener('click', function () {
+        //     document.body.classList.add('clicked'); 
+        //     setTimeout(() => {
+        //         document.body.classList.remove('clicked'); // 200 毫秒後恢復原樣
+        //     }, 200);
+        // });
+
+        function changeImage(event) {
             event.preventDefault(); // 阻止預設行為
-            document.body.classList.add('clicked'); // 整個視窗的游標改變
+            player_transparent.classList.add('clicked'); // 將透明圖片變更為新游標圖片
+            // 交換z-index
+            player_transparent.style.zIndex = zIndex2;
+            player.style.zIndex = zIndex1;
+            //改變圖片大小
+            player_transparent.style.width = '60px';
+            player_transparent.style.height = '60px';
+           
+
             setTimeout(() => {
-                document.body.classList.remove('clicked'); // 200 毫秒後恢復原樣
-            }, 200);
+                player_transparent.classList.remove('clicked');
+                player_transparent.style.zIndex = zIndex1;
+                player.style.zIndex = zIndex2;
+                player_transparent.style.width = '15%';
+                player_transparent.style.height = 'auto%';
+            }, 200);  // 200 毫秒後恢復原圖片 & z-index & 原圖片大小
+
+
         }
 
+
         // 添加點擊事件監聽
-        el.addEventListener('click', changeCursor);
+        player.addEventListener('click', changeImage);
 
         // 添加觸摸事件監聽以支援手機瀏覽器
-        el.addEventListener('touchstart', changeCursor);
-        el.addEventListener('touchend', changeCursor);
+        player.addEventListener('touchstart', changeImage);
+        player.addEventListener('touchend', changeImage);
     }
     function scoreboard() {  //更新分數板
         document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + score;
@@ -158,8 +206,8 @@
 
     window.onload = function () {
 
-        el = document.getElementById("movingImage");
-        el.onclick = scoreUp;   // 點擊圖片時增加分數
+        // player = document.getElementById("movingImage");
+        player.onclick = scoreUp;   // 點擊圖片時增加分數
         document.getElementById("range").onclick = function () {  //更新總點擊次數
             shots++;
             scoreboard();
@@ -197,7 +245,7 @@
             alert("時間到！\n可惜...此次餵食成功率只有" + rate + "%！\n小技巧分享，可以試試看用手機橫向的狀態或是用電腦玩");
 
 
-        el.onclick = null;
+        player.onclick = null;
         document.getElementById("range").onclick = null;
     }
     function restartGame() {
@@ -207,7 +255,7 @@
         countdownElement.textContent = "倒數計時: " + countdown;
         clearInterval(countdownInterval);
 
-        el.onclick = scoreUp;   // 點擊圖片時增加分數
+        player.onclick = scoreUp;   // 點擊圖片時增加分數
         document.getElementById("range").onclick = function () {  //更新總點擊次數
             shots++;
             scoreboard();
