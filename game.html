@@ -131,13 +131,17 @@
     function scoreUp() {	//增加分数並變換游標圖
         score++;
 
-        // var changeCursor =  document.getElementById("background");
-        el.addEventListener('click', function () {
+         function changeCursor() {
             document.body.classList.add('clicked'); // 整個視窗的游標改變
             setTimeout(() => {
                 document.body.classList.remove('clicked'); // 200 毫秒後恢復原樣
             }, 200);
-        });
+        }
+
+        // 添加點擊事件監聽
+        el.addEventListener('click', changeCursor);
+        // 添加觸摸事件監聽以支援手機瀏覽器
+        el.addEventListener('touchstart', changeCursor);
     }
     function scoreboard() {  //更新分數板
         document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + score;
