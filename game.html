@@ -155,7 +155,7 @@
         setTimeout(moveImage, 200); // 控制移動速度，每0.2秒移動一次
     }
     function scoreUp() {	//增加分数並變換游標圖
-        score++;
+        
 
         // el.addEventListener('click', function () {
         //     document.body.classList.add('clicked'); 
@@ -165,6 +165,7 @@
         // });
 
         function changeImage(event) {
+            score++;
             event.preventDefault(); // 阻止預設行為
             player_transparent.classList.add('clicked'); // 將透明圖片變更為新游標圖片
             // 交換z-index
