@@ -164,7 +164,7 @@
         //     }, 200);
         // });
 
-        let isSwapping = false;  //防止連續點擊
+        var isSwapping = false;  //防止連續點擊
         function changeImage(event) {
             if(!isSwapping){
                 isSwapping = true;
@@ -189,12 +189,12 @@
             }
             isSwapping = false;
 
-        // 添加點擊事件監聽
-        player.addEventListener('click', changeImage);
+            // 添加點擊事件監聽
+            player.addEventListener('click', changeImage);
 
-        // 添加觸摸事件監聽以支援手機瀏覽器
-        player.addEventListener('touchstart', changeImage);
-        player.addEventListener('touchend', changeImage);
+            // 添加觸摸事件監聽以支援手機瀏覽器
+            player.addEventListener('touchstart', changeImage);
+            player.addEventListener('touchend', changeImage);
     }
     function scoreboard() {  //更新分數板
         document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + scores;
