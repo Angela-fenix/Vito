@@ -164,8 +164,12 @@
         //     }, 200);
         // });
 
+        var isSwapping = false;
         function changeImage(event) {
-            
+
+            if(!isSwapping)
+            {
+                isSwapping = true;
             event.preventDefault(); // 阻止預設行為
             player_transparent.classList.add('clicked'); // 將透明圖片變更為新游標圖片
             // 交換z-index
@@ -183,7 +187,9 @@
                 player_transparent.style.width = '15%';
                 player_transparent.style.height = 'auto%';
             }, 200);  // 200 毫秒後恢復原圖片 & z-index & 原圖片大小
+            }
         }
+        isSwapping = false;
 
         // 添加點擊事件監聽
         player.addEventListener('click', changeImage);
