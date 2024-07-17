@@ -86,7 +86,7 @@
 </body>
 
 <script>
-    var score = 0;    // 分數
+    var scores = 0;    // 分數
     var shots = 0;   // 總共射擊次數
     // var el = null;
     let currentIndex = 0;
@@ -155,7 +155,7 @@
         setTimeout(moveImage, 200); // 控制移動速度，每0.2秒移動一次
     }
     function scoreUp() {	//增加分数並變換游標圖
-        
+        scores++;
 
         // el.addEventListener('click', function () {
         //     document.body.classList.add('clicked'); 
@@ -165,7 +165,7 @@
         // });
 
         function changeImage(event) {
-            score++;
+            
             event.preventDefault(); // 阻止預設行為
             player_transparent.classList.add('clicked'); // 將透明圖片變更為新游標圖片
             // 交換z-index
@@ -190,10 +190,10 @@
 
         // 添加觸摸事件監聽以支援手機瀏覽器
         player.addEventListener('touchstart', changeImage);
-        //player.addEventListener('touchend', changeImage);
+        player.addEventListener('touchend', changeImage);
     }
     function scoreboard() {  //更新分數板
-        document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + score;
+        document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + scores;
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -235,7 +235,7 @@
         if (shots == 0)
             rate = 0;
         else
-            rate = ((score / shots) * 100).toFixed(2);
+            rate = ((scores / shots) * 100).toFixed(2);
 
          if (rate >= 50)
             alert("時間到！\n太棒啦~浦洋獲得了滿滿的愛<3 此次成功率高達" + rate + "%！\n有發現嗎~浦洋的飛行路線是FEniX的字樣喔！");
@@ -247,7 +247,7 @@
     }
     function restartGame() {
         countdown = 10;
-        score = 0;
+        scores = 0;
         shots = 0;
         countdownElement.textContent = "倒數計時: " + countdown;
         clearInterval(countdownInterval);
