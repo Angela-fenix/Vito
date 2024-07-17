@@ -164,37 +164,33 @@
         //     }, 200);
         // });
 
-        // var isSwapping = false;  //防止連續點擊
         function changeImage(event) {
-            // if(!isSwapping){
-                // isSwapping = true;
             
-                event.preventDefault(); // 阻止預設行為
-                player_transparent.classList.add('clicked'); // 將透明圖片變更為新游標圖片
-                // 交換z-index
-                player_transparent.style.zIndex = zIndex2;
-                player.style.zIndex = zIndex1;
-                //改變圖片大小
-                player_transparent.style.width = '60px';
-                player_transparent.style.height = '60px';
+            event.preventDefault(); // 阻止預設行為
+            player_transparent.classList.add('clicked'); // 將透明圖片變更為新游標圖片
+            // 交換z-index
+            player_transparent.style.zIndex = zIndex2;
+            player.style.zIndex = zIndex1;
+            //改變圖片大小
+            player_transparent.style.width = '60px';
+            player_transparent.style.height = '60px';
            
-                setTimeout(() => {
-                    player_transparent.classList.remove('clicked');
-                    player_transparent.style.zIndex = zIndex1;
-                    player.style.zIndex = zIndex2;
-                    player_transparent.style.width = '15%';
-                    player_transparent.style.height = 'auto%';
-                    
-                }, 200);  // 200 毫秒後恢復原圖片 & z-index & 原圖片大小
-            // }
-            // isSwapping = false;
 
-            // 添加點擊事件監聽
-            player.addEventListener('click', changeImage);
+            setTimeout(() => {
+                player_transparent.classList.remove('clicked');
+                player_transparent.style.zIndex = zIndex1;
+                player.style.zIndex = zIndex2;
+                player_transparent.style.width = '15%';
+                player_transparent.style.height = 'auto%';
+            }, 200);  // 200 毫秒後恢復原圖片 & z-index & 原圖片大小
+        }
 
-            // 添加觸摸事件監聽以支援手機瀏覽器
-            player.addEventListener('touchstart', changeImage);
-            player.addEventListener('touchend', changeImage);
+        // 添加點擊事件監聽
+        player.addEventListener('click', changeImage);
+
+        // 添加觸摸事件監聽以支援手機瀏覽器
+        player.addEventListener('touchstart', changeImage);
+        player.addEventListener('touchend', changeImage);
     }
     function scoreboard() {  //更新分數板
         document.getElementById("score").innerHTML = "總點擊次數: " + shots + " 分數: " + scores;
