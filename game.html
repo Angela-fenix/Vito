@@ -203,8 +203,8 @@
 
     window.onload = function () {
 
-        player = document.getElementById("movingImage");
-        player.onclick = scoreUp;   // 點擊圖片時增加分數
+       // player = document.getElementById("movingImage");
+        player.onclick = scoreUp();   // 點擊圖片時增加分數
         document.getElementById("range").onclick = function () {  //更新總點擊次數
             shots++;
             scoreboard();
